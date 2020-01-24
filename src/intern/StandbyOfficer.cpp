@@ -1,7 +1,5 @@
 #include "StandbyOfficer.h"
 
-// #include <Arduino.h>
-
 StandbyOfficer::StandbyOfficer(unsigned long seconds_idle_before_standby) :
         seconds_idle_before_standby(seconds_idle_before_standby)
 {}
