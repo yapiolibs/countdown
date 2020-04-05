@@ -4,8 +4,10 @@
 
 bool Countdown::process(Callback_t call_back)
 {
-    if(process())
+    bool timed_out = process();
+    if(timed_out)
         call_back();
+    return timed_out;
 }
 
 // -------------------------------------------------------------------------------------------------
@@ -22,11 +24,13 @@ bool Countdown::process()
         onTimeout();
         return true;
     }
+
+    return false;
 }
 
 // -------------------------------------------------------------------------------------------------
 
-void enable()
+void Countdown::enable()
 {
     Serial.printf("StandbyOfficer::enable: officer %s\n", name.c_str());
     enabled = true;
@@ -34,7 +38,7 @@ void enable()
 
 // -------------------------------------------------------------------------------------------------
 
-void disable()
+void Countdown::disable()
 {
     Serial.printf("StandbyOfficer::disable: officer %s\n", name.c_str());
     enabled = false;
@@ -42,7 +46,7 @@ void disable()
 
 // -------------------------------------------------------------------------------------------------
 
-void reset()
+void Countdown::reset()
 {
 
     Serial.printf("StandbyOfficer::reset: officer %s\n", name.c_str());
