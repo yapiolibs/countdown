@@ -14,7 +14,11 @@
       "maintainer": "true"
     }
   ],
-  "dependencies": {},
+  "dependencies": {
+      "name": "elapsedMillis",
+      "authors": ["Paul Stoffregen", "Peter Feerick"],
+      "frameworks": "arduino"
+   },
   "version": "0.1",
   "frameworks": "arduino",
   "platforms": "*"
