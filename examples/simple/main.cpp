@@ -14,6 +14,7 @@ void setup()
 
 void main()
 {  
+    // Invoke std::function, alternatively inherit from counter and oveload onTimeout().
     standby_officer.process(on_t_minus_zero);
 }
 
