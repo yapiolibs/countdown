@@ -2,7 +2,7 @@
 
 // -------------------------------------------------------------------------------------------------
 
-bool Countdown::process(Callback_t call_back)
+bool Countdown::process(Callback_t &call_back)
 {
     bool timed_out = process();
     if(timed_out)

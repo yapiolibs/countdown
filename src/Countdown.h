@@ -22,7 +22,7 @@ struct Countdown
      * @param call_back the callback to call if time run out
      * @return true if callback was executed, false otherwise
      */
-    bool process(Callback_t call_back);
+    bool process(Callback_t &call_back);
 
     /**
      * Calls virtual method #onTimeout() if time run out.
