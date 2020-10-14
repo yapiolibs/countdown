@@ -17,11 +17,19 @@ bool Countdown::process()
     if(!enabled)
         return false;
 
+    if(already_triggered)
+        return false;
+
     if(elapsed_seconds >= seconds_idle_before_standby)
     {
-        Serial.printf("StandbyOfficer::process: officer %s ", name.c_str());
-        Serial.printf("reports %lu seconds countdown timed out\n", static_cast<unsigned long>(elapsed_seconds));
+        if(is_verbose)
+        {
+            Serial.printf("StandbyOfficer::process: officer %s ", name.c_str());
+            Serial.printf("reports %lu seconds countdown timed out\n",
+                          static_cast<unsigned long>(elapsed_seconds));
+        }
         onTimeout();
+        already_triggered = true;
         return true;
     }
 
@@ -30,9 +38,14 @@ bool Countdown::process()
 
 // -------------------------------------------------------------------------------------------------
 
+bool Countdown::isEnabled() const { return enabled; }
+
+// -------------------------------------------------------------------------------------------------
+
 void Countdown::enable()
 {
-    Serial.printf("StandbyOfficer::enable: officer %s\n", name.c_str());
+    if(is_verbose)
+        Serial.printf("StandbyOfficer::enable: officer %s\n", name.c_str());
     enabled = true;
 }
 
@@ -40,7 +53,8 @@ void Countdown::enable()
 
 void Countdown::disable()
 {
-    Serial.printf("StandbyOfficer::disable: officer %s\n", name.c_str());
+    if(is_verbose)
+        Serial.printf("StandbyOfficer::disable: officer %s\n", name.c_str());
     enabled = false;
 }
 
@@ -48,7 +62,8 @@ void Countdown::disable()
 
 void Countdown::reset()
 {
-
-    Serial.printf("StandbyOfficer::reset: officer %s\n", name.c_str());
+    if(is_verbose)
+        Serial.printf("StandbyOfficer::reset: officer %s\n", name.c_str());
+    already_triggered = false;
     elapsed_seconds = 0;
 }

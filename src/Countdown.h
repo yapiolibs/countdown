@@ -10,8 +10,8 @@ struct Countdown
 {
     using Callback_t = std::function<void()>;
 
-    Countdown(unsigned long seconds_countdown = 60, const String &name = "scotty")
-    : seconds_idle_before_standby(seconds_countdown), name(name)
+    Countdown(unsigned long seconds_countdown = 60, const String &name = "scotty", bool verbose_logging = false)
+    : is_verbose{ verbose_logging }, seconds_idle_before_standby{ seconds_countdown }, name{ name }
     {
     }
 
@@ -31,11 +31,14 @@ struct Countdown
     bool process();
 
     void enable();
+    bool isEnabled() const;
     void disable();
     void reset();
 
 private:
     bool enabled{ false };
+    bool already_triggered{ false };
+    const bool is_verbose;
     elapsedSeconds elapsed_seconds{ std::numeric_limits<unsigned long>::max() };
     unsigned long seconds_idle_before_standby;
     const String name;
